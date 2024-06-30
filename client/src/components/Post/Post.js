@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from './Post.module.css';
 import PostCard from "./PostCard/PostCard";
 
@@ -10,11 +10,14 @@ export default function Post({ Post, setPost }) {
     const [isBold, setIsBold] = useState(false);
     const [isItalic, setIsItalic] = useState(false);
     const [isUnderline, setIsUnderline] = useState(false);
+    const offset = useRef(0);
     // console.log(data);
     useEffect(() => {
+        var objTable = document.getElementById("main-container");
+        objTable.addEventListener("scroll", handleScroll);
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:4000/api/post`, {
+                const response = await fetch(`https://post-comment-chi.vercel.app/api/post?offset=${offset.current}&limit=50`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -29,7 +32,40 @@ export default function Post({ Post, setPost }) {
             }
         }
         fetchData();
+        return () => window.removeEventListener('scroll', handleScroll);
     }, [])
+
+    const handleScroll = () => {
+        const objTable = document.getElementById("main-container");
+        if (objTable.scrollTop + objTable.clientHeight >= objTable.scrollHeight - 2) {
+            const fetchData = async () => {
+                try {
+                    // console.log(offset)
+                    const response = await fetch(`https://post-comment-chi.vercel.app/api/post?offset=${offset.current+50}&limit=50`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+                    if (response.ok) {
+                        const newData = await response.json();
+                        // setOffset(prev => prev + 5);
+                        offset.current+=50;
+                        if (newData.length===0){
+                            offset.current-=50;
+                        }
+                        
+                        setData(prevData => [...prevData, ...newData]);
+                        console.log(data, offset)
+                    }
+                }
+                catch (error) {
+                    console.log('Error:', error);
+                }
+            }
+            fetchData();
+        }
+    };
 
     const handleInputChange = (e) => {
         setNewPost(e.target.value);
@@ -47,29 +83,29 @@ export default function Post({ Post, setPost }) {
         setIsUnderline(!isUnderline);
     };
 
-    const handlePostSubmit = async(event) => {
+    const handlePostSubmit = async (event) => {
         // Logic to handle post submission
         event.preventDefault();
-        let token=localStorage.getItem('token')
+        let token = localStorage.getItem('token')
         if (newPost.trim()) {
             try {
-                const response = await fetch(`http://localhost:4000/api/post/add`, {
+                const response = await fetch(`https://post-comment-chi.vercel.app/api/post/add`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': token
                     },
-                    body: JSON.stringify({content: newPost }),
+                    body: JSON.stringify({ content: newPost }),
                 });
                 if (response.status === 201) {
                     const post = await response.json();
                     setData([post, ...data])
                 }
-                else{
+                else {
                     // const errorData = await response.json();
                     alert("Error Occurred!");
                 }
-                
+
             }
             catch (error) {
                 console.log('Error:', error);
@@ -99,7 +135,7 @@ export default function Post({ Post, setPost }) {
         prop = { ...prop, backgroundColor: "beige" };
     }
     return (
-        <div style={prop}>
+        <div id="main-container" style={prop}>
             {(!Post) ?
                 (data.map((item) => (
                     <PostCard id={item._id} text={item.content} user={item.user.email} />

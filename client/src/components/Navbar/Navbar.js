@@ -30,6 +30,7 @@ export default function Navbar({ LoginStatus, setLoginStatus, setPost, user, set
         if (LoginStatus === "Logout") {
             setLoginStatus('Login')
             setUser(null)
+            setPost(false)
         }
         router.push("/login")
     }

@@ -3,9 +3,9 @@ const User = require('../models/userModel');
 
 
 const getAllPosts = async (req, res) => {
-
+    const { offset, limit} = req.query;
     try {
-        const posts = await Post.find().populate('user')
+        const posts = await Post.find().populate('user').skip(parseInt(offset)).limit(parseInt(limit));
 
         res.json(posts);
 

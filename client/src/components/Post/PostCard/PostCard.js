@@ -4,20 +4,25 @@ import { FaRegComment } from 'react-icons/fa';
 import { useRouter } from "next/router";
 import Comment from "@/components/Comment/Comment";
 import { FaChevronUp } from 'react-icons/fa';
+import 'react-quill/dist/quill.snow.css';
+import dynamic from "next/dynamic";
+import { htmlToText } from 'html-to-text';
 
-export default function PostCard({id, text , user}) {
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+
+export default function PostCard({ id, text, user }) {
     const [comments, setComments] = useState(false)
     const [newComment, setNewComment] = useState('');
     const [data, setData] = useState([]);
     const router = useRouter();
     async function handleOnClick() {
         try {
-            const response = await fetch(`http://localhost:4000/api/comments`, {
+            const response = await fetch(`https://post-comment-chi.vercel.app/api/comments`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({postId: id }),
+                body: JSON.stringify({ postId: id }),
             });
             if (response.ok) {
                 setData(await response.json());
@@ -30,32 +35,32 @@ export default function PostCard({id, text , user}) {
 
     }
 
-    function handleInputChange(event) {
-        setNewComment(event.target.value);
+    function handleInputChange(value) {
+        setNewComment(value);
     }
 
     async function handleSubmit(event) {
         event.preventDefault();
-        let token=localStorage.getItem('token')
+        let token = localStorage.getItem('token')
         if (newComment.trim()) {
             try {
-                const response = await fetch(`http://localhost:4000/api/comments/add`, {
+                const response = await fetch(`https://post-comment-chi.vercel.app/api/comments/add`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': token
                     },
-                    body: JSON.stringify({postId: id, text:newComment }),
+                    body: JSON.stringify({ postId: id, text: newComment }),
                 });
                 if (response.status === 201) {
                     const post = await response.json();
-                    setData([...data,post])
+                    setData([...data, post])
                 }
-                else{
+                else {
                     // const errorData = await response.json();
                     alert("Error Occurred!");
                 }
-                
+
             }
             catch (error) {
                 console.log('Error:', error);
@@ -63,7 +68,7 @@ export default function PostCard({id, text , user}) {
             // setData([...data, { text: newComment, user: "Ravi" }])
             setNewComment("")
         }
-        else{
+        else {
             alert("Type something to submit!")
         }
     }
@@ -81,13 +86,19 @@ export default function PostCard({id, text , user}) {
                         <Comment text={item.text} user={item.user.email} />
                     ))}
                     <form onSubmit={handleSubmit} className={styles["post-card-comment-form"]}>
-                        <input
-                            type="text"
+                        <ReactQuill
                             value={newComment}
                             onChange={handleInputChange}
                             className={styles["post-card-comment-input"]}
                             placeholder="Write a comment..."
                         />
+                        {/* <input
+                            type="text"
+                            value={newComment}
+                            onChange={handleInputChange}
+                            className={styles["post-card-comment-input"]}
+                            placeholder="Write a comment..."
+                        /> */}
                         <button type="submit" className={styles["post-card-comment-button"]}>Submit</button>
                     </form>
                     <p className={styles["post-card-comments-close"]} onClick={handleOnClick}>Close  <FaChevronUp /></p>

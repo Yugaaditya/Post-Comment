@@ -71,20 +71,30 @@
 
 .post-card-comment-form {
     display: flex;
+    align-items: center;
+    gap: 10px;
+    /* display: flex; */
     margin: 1.3vh auto;
     margin-bottom: 4vh;
     width: 90%;
 }
 
 .post-card-comment-input {
+    width: 100%;
+    box-sizing: border-box;
     flex: 1;
     padding: 10px;
+    background-color: white;
     border: 1px solid #ccc;
     border-radius: 20px;
     margin-right: 0.65vw;
 }
 
 .post-card-comment-button {
+    margin: auto 0;
+    height: 7vh;
+    display: flex;
+    align-items: center;
     padding: 1.3vh 1.31vw;
     background-color: #7d3737;
     color: white;
