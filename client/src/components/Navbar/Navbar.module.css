@@ -1,0 +1,19 @@
+.header-item-list{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-comment{
+    padding: 0 0.5vw; 
+    font-size: 1.5em;
+    border: 1px solid black;
+}
+
+.logout{
+    min-width: 5vw;
+    margin-top: -1vh !important;
+    margin-right: 1.2vw;
+    cursor: pointer;
+}

@@ -1,0 +1,71 @@
+
+
+.post-card-bottom-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    /* Your specific styles for the bottom container */
+}
+
+.formattingButtons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    margin-right: 4.5vw;
+}
+
+.formattingButtons button {
+    width: 2.5vw;
+    padding: 0.65vh 0.65vw;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #e6b1b1;
+}
+
+.formattingButtons button.active {
+    background-color: #5f4949;
+    color: white;
+    border: none;
+}
+
+.textarea {
+    width: 75%;
+    height: 30vh;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+.submitButton {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #6b5c21;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+.submitButton:hover {
+    background-color: #121314;
+}
+
+.back-button{
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #6b5c21;
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+.submit-back-buttons{
+    width: 75%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    /* gap: 1.5vw; */
+}

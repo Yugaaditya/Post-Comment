@@ -1,0 +1,98 @@
+.post-card-main-container{
+    width: 80%;
+    height: fit-content;
+    padding: 2vh 3vw 1.5vh 3vw;
+    background-color: antiquewhite;
+    border-radius: 20px 20px 0 0;
+    margin: 2.5vh auto;
+    margin-bottom: 0;   
+}
+
+.post-card-bottom-container{
+    width: 80%;
+    height: fit-content;
+    padding: 0 3vw 0.5vh 3vw;
+    background-color: antiquewhite;
+    border-radius: 0 0 20px 20px;
+    margin: 2.5vh auto;
+    margin-top: 0;
+}
+
+.post-card-text{
+    text-align: justify;
+    margin:0;
+    font-size: 1.3em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+.post-card-comment{
+    cursor: pointer;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 7px
+}
+
+.post-card-user{
+    margin-bottom: 2vh;
+}
+
+.post-card-user-comments{
+    margin: 0;
+
+}
+
+.post-card-user-comments{
+    width: 80%;
+    border-radius: 0 0 20px 20px;
+    margin: auto;
+    background-color: #faf6e9;
+    padding: 0 0 0.1vh 0;
+}
+
+.post-card-comments-header{
+    font-size: 1.4em;
+    font-weight: 500;
+    margin: 2vh 0 3.5vh 2vw;
+}
+
+.post-card-comments-close{
+    width: fit-content;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    margin-left: auto;
+    margin-right: 3vw;
+    display: flex;
+    align-items: center;
+    gap:0.25vw
+}
+
+.post-card-comment-form {
+    display: flex;
+    margin: 1.3vh auto;
+    margin-bottom: 4vh;
+    width: 90%;
+}
+
+.post-card-comment-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-right: 0.65vw;
+}
+
+.post-card-comment-button {
+    padding: 1.3vh 1.31vw;
+    background-color: #7d3737;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* .post-card-comment-button:hover {
+    background-color: #0056b3;
+} */
