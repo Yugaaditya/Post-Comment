@@ -19,7 +19,7 @@
 .login-text{
   margin-top: 20px;
   margin-bottom: 20px;
-  text-decoration: underline;
+  color: black;
 }
 .login-form-image{
   width: 50vh;
